@@ -23,14 +23,14 @@ def main():
     async def handle_start(client, message):
         logger.info(f"Received start command from {message.from_user.id}")
         welcome_text = (
-            "👋 مرحباً بكم في **مصنع البوتات SB** لصناعة بوتات تلغرام تعمل على فحص اليوزرات المتاحة.\n\n"
+            "👋 مرحباً بكم في مصنع البوتات SB لصناعة بوتات تلغرام تعمل على فحص اليوزرات المتاحة.\n\n"
             "استخدم الأوامر في الأسفل لإنشاء بوتك الخاص:\n"
             "🔹 /create_bot - لإنشاء بوت جديد.\n"
             "🔹 /delete_bot - لحذف بوت.\n"
             "🔹 /list_bots - قائمة البوتات التي قمت بإنشائها.\n"
             "🔹 /fetch_updates - جلب التحديثات للبوتات الخاصة بك.\n"
         )
-        await message.reply_text(welcome_text, parse_mode="MarkdownV2")
+        await message.reply_text(welcome_text)  # بدون تنسيق
 
     @app.on_message(filters.command("create_bot"))
     async def handle_create_bot(client, message):
