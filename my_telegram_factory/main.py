@@ -4,6 +4,8 @@ from database import init_db
 from bot_manager import BotManager
 from update_manager import UpdateManager
 import logging
+import subprocess
+import os
 
 # إعداد السجل
 logging.basicConfig(level=logging.INFO)
@@ -29,6 +31,7 @@ def main():
             "🔹 /delete_bot - لحذف بوت.\n"
             "🔹 /list_bots - قائمة البوتات التي قمت بإنشائها.\n"
             "🔹 /fetch_updates - جلب التحديثات للبوتات الخاصة بك.\n"
+            "🔹 /update - تحديث البوت من GitHub.\n"
         )
         await message.reply_text(welcome_text)  # بدون تنسيق
 
@@ -55,6 +58,19 @@ def main():
         logger.info(f"Received fetch_updates command from {message.from_user.id}")
         await message.reply_text("Fetching updates...")  # استجابة أولية
         # هنا يجب إضافة منطق لجلب التحديثات
+
+    @app.on_message(filters.command("update"))
+    async def handle_update(client, message):
+        logger.info(f"Received update command from {message.from_user.id}")
+        await message.reply_text("Updating the bot... Please wait.")
+
+        try:
+            # تنفيذ الأمر لجلب التحديثات من GitHub
+            subprocess.run(["git", "pull"], cwd=os.path.dirname(os.path.abspath(__file__)), check=True)
+            await message.reply_text("Bot has been updated successfully! You may need to restart it.")
+        except Exception as e:
+            logger.error(f"Error updating bot: {e}")
+            await message.reply_text("Failed to update the bot. Please try again later.")
 
     try:
         app.run()
