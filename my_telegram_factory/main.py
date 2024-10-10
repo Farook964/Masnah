@@ -10,6 +10,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 logger.info("Starting the bot...")
+
 def main():
     init_db()  # إعداد قاعدة البيانات
 
@@ -20,25 +21,33 @@ def main():
 
     @app.on_message(filters.command("create_bot"))
     async def handle_create_bot(client, message):
-        # معالجة أمر إنشاء بوت
-        pass
+        logger.info(f"Received create_bot command from {message.from_user.id}")
+        await message.reply_text("Creating a bot...")  # استجابة أولية
+        # هنا يجب إضافة منطق لإنشاء بوت
 
     @app.on_message(filters.command("delete_bot"))
     async def handle_delete_bot(client, message):
-        # معالجة أمر حذف بوت
-        pass
+        logger.info(f"Received delete_bot command from {message.from_user.id}")
+        await message.reply_text("Deleting a bot...")  # استجابة أولية
+        # هنا يجب إضافة منطق لحذف بوت
 
     @app.on_message(filters.command("list_bots"))
     async def handle_list_bots(client, message):
-        # معالجة أمر قائمة البوتات
-        pass
+        logger.info(f"Received list_bots command from {message.from_user.id}")
+        await message.reply_text("Listing all bots...")  # استجابة أولية
+        # هنا يجب إضافة منطق لقائمة البوتات
 
     @app.on_message(filters.command("fetch_updates"))
     async def handle_fetch_updates(client, message):
-        # معالجة أمر جلب التحديثات
-        pass
+        logger.info(f"Received fetch_updates command from {message.from_user.id}")
+        await message.reply_text("Fetching updates...")  # استجابة أولية
+        # هنا يجب إضافة منطق لجلب التحديثات
 
-    app.run()
+    try:
+        app.run()
+    except Exception as e:
+        logger.error(f"Error occurred: {e}")
 
 if __name__ == "__main__":
     main()
+
