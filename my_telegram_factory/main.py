@@ -30,7 +30,7 @@ def main():
             "🔹 /list_bots - قائمة البوتات التي قمت بإنشائها.\n"
             "🔹 /fetch_updates - جلب التحديثات للبوتات الخاصة بك.\n"
         )
-        await message.reply_text(welcome_text, parse_mode="Markdown")
+        await message.reply_text(welcome_text, parse_mode="MarkdownV2")
 
     @app.on_message(filters.command("create_bot"))
     async def handle_create_bot(client, message):
@@ -62,4 +62,4 @@ def main():
         logger.error(f"Error occurred: {e}")
 
 if __name__ == "__main__":
-    main()
+    main()￼Enter
