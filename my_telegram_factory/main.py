@@ -3,7 +3,13 @@ from config import api_id, api_hash, bot_token
 from database import init_db
 from bot_manager import BotManager
 from update_manager import UpdateManager
+import logging
 
+# إعداد السجل
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+logger.info("Starting the bot...")
 def main():
     init_db()  # إعداد قاعدة البيانات
 
