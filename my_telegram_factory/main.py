@@ -62,4 +62,4 @@ def main():
         logger.error(f"Error occurred: {e}")
 
 if __name__ == "__main__":
-    main()￼Enter
+    main()
