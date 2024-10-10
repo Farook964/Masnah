@@ -1,4 +1,4 @@
-from pyrogram import Client
+from pyrogram import Client, filters
 from config import api_id, api_hash, bot_token
 from database import init_db
 from bot_manager import BotManager
