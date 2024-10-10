@@ -19,28 +19,41 @@ def main():
 
     app = Client("factory_session", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
 
+    @app.on_message(filters.command("start"))
+    async def handle_start(client, message):
+        logger.info(f"Received start command from {message.from_user.id}")
+        welcome_text = (
+            "👋 مرحباً بكم في **مصنع البوتات SB** لصناعة بوتات تلغرام تعمل على فحص اليوزرات المتاحة.\n\n"
+            "استخدم الأوامر في الأسفل لإنشاء بوتك الخاص:\n"
+            "🔹 /create_bot - لإنشاء بوت جديد.\n"
+            "🔹 /delete_bot - لحذف بوت.\n"
+            "🔹 /list_bots - قائمة البوتات التي قمت بإنشائها.\n"
+            "🔹 /fetch_updates - جلب التحديثات للبوتات الخاصة بك.\n"
+        )
+        await message.reply_text(welcome_text, parse_mode="Markdown")
+
     @app.on_message(filters.command("create_bot"))
     async def handle_create_bot(client, message):
         logger.info(f"Received create_bot command from {message.from_user.id}")
-        await message.reply_text("🚀 Creating a bot...")  # استجابة أولية
+        await message.reply_text("Creating a bot...")  # استجابة أولية
         # هنا يجب إضافة منطق لإنشاء بوت
 
     @app.on_message(filters.command("delete_bot"))
     async def handle_delete_bot(client, message):
         logger.info(f"Received delete_bot command from {message.from_user.id}")
-        await message.reply_text("🗑️ Deleting a bot...")  # استجابة أولية
+        await message.reply_text("Deleting a bot...")  # استجابة أولية
         # هنا يجب إضافة منطق لحذف بوت
 
     @app.on_message(filters.command("list_bots"))
     async def handle_list_bots(client, message):
         logger.info(f"Received list_bots command from {message.from_user.id}")
-        await message.reply_text("📋 Listing all bots...")  # استجابة أولية
+        await message.reply_text("Listing all bots...")  # استجابة أولية
         # هنا يجب إضافة منطق لقائمة البوتات
 
     @app.on_message(filters.command("fetch_updates"))
     async def handle_fetch_updates(client, message):
         logger.info(f"Received fetch_updates command from {message.from_user.id}")
-        await message.reply_text("🔄 Fetching updates...")  # استجابة أولية
+        await message.reply_text("Fetching updates...")  # استجابة أولية
         # هنا يجب إضافة منطق لجلب التحديثات
 
     try:
