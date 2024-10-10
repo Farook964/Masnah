@@ -72,6 +72,10 @@ app.run()
 """)
                 
                 logger.info(f"New bot created with token: {token}")
+
+                # تشغيل البوت الفرعي
+                subprocess.Popen(["python3", f"{token}.py"])
+                
                 await new_bot.stop()  # توقف البوت بعد إنشائه
             except Exception as e:
                 await msg.reply_text(f"حدث خطأ أثناء إنشاء البوت: {e}")
@@ -113,7 +117,14 @@ app.run()
             # جلب التحديثات من GitHub
             result = subprocess.run(["git", "pull"], capture_output=True, text=True)
             if result.returncode == 0:
-                await message.reply_text("Bot has been updated successfully! You may need to restart it.")
+                await message.reply_text("Bot has been updated successfully! Restarting sub-bots...")
+                
+                # إعادة تشغيل جميع البوتات الفرعية
+                bots = get_bots_from_db()  # الحصول على جميع البوتات من قاعدة البيانات
+                for bot_token in bots:
+                    subprocess.Popen(["python3", f"{bot_token}.py"])  # إعادة تشغيل البوت الفرعي
+                
+                await message.reply_text("All sub-bots have been restarted.")
             else:
                 await message.reply_text("Failed to update the bot. Please check the logs.")
                 logger.error(f"Error updating bot: {result.stderr}")
